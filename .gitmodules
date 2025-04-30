@@ -1,0 +1,6 @@
+[submodule "u-boot"]
+	path = u-boot
+	url = git@github.com:u-boot/u-boot.git
+[submodule "buildroot"]
+	path = buildroot
+	url = git@github.com:buildroot/buildroot.git
