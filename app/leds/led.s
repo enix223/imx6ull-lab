@@ -73,7 +73,7 @@ _start:
      * Write GDIOx_DR (GPIO5_IO1) = 0
      */ 
     ldr r0, =0x020AC000
-    ldr r1, =0
+    ldr r1, =0x0
     str r1, [r0]
 
 loop:
