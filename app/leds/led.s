@@ -2,8 +2,20 @@
  * Toogle LED
  * SNVS_TAMPER1 (GPIO5_01) -> D12 
  */
+.section .text
 .global _start
+
 _start:
+    b reset_handler    @ First instruction must be a branch
+    .word 0xFFFFFFFF   @ Reserved vectors
+    .word 0xFFFFFFFF
+    .word 0xFFFFFFFF
+    .word 0xFFFFFFFF
+    .word 0xFFFFFFFF
+    .word 0xFFFFFFFF
+    .word 0xFFFFFFFF
+
+reset_handler:
     /*
      * enable CCM
      */ 
