@@ -1,0 +1,14 @@
+--- a/arch/arm/dts/imx6ull-myir-mys-6ulx-eval.dts	2024-01-08 15:37:48.000000000 +0000
++++ b/arch/arm/dts/imx6ull-myir-mys-6ulx-eval.dts	2025-05-02 09:12:35.991628593 +0000
+@@ -11,6 +11,11 @@
+ / {
+ 	model = "MYiR i.MX6ULL MYS-6ULX Single Board Computer with NAND";
+ 	compatible = "myir,imx6ull-mys-6ulx-eval", "fsl,imx6ull";
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x10000000>;  // 256MB (0x10000000 = 256M)
++	};
+ };
+ 
+ &gpmi {
