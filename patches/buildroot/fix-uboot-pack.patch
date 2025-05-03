@@ -1,0 +1,40 @@
+diff --git a/board/freescale/common/imx/genimage.cfg.template_spl b/board/freescale/common/imx/genimage.cfg.template_spl
+index 3b0667c383..30959b0d8f 100644
+--- a/board/freescale/common/imx/genimage.cfg.template_spl
++++ b/board/freescale/common/imx/genimage.cfg.template_spl
+@@ -23,16 +23,10 @@ image sdcard.img {
+ 
+   partition spl {
+     in-partition-table = "no"
+-    image = "SPL"
++    image = "u-boot-with-spl.imx"
+     offset = 1024
+   }
+ 
+-  partition u-boot {
+-    in-partition-table = "no"
+-    image = "%UBOOTBIN%"
+-    offset = 69K
+-  }
+-
+   partition boot {
+     partition-type = 0xC
+     bootable = "true"
+diff --git a/boot/uboot/uboot.mk b/boot/uboot/uboot.mk
+index d8faef648f..97cd0173a4 100644
+--- a/boot/uboot/uboot.mk
++++ b/boot/uboot/uboot.mk
+@@ -230,6 +230,13 @@ endef
+ UBOOT_PRE_BUILD_HOOKS += UBOOT_COPY_IMX_FW_FILES
+ endif
+ 
++ifeq ($(BR2_TARGET_UBOOT_SPL),y$(and $(BR2_TARGET_UBOOT_FORMAT_DTB_IMX),y))
++define UBOOT_INSTALL_UBOOT_SPL_IMX_BIN
++	$(INSTALL) -D -m 0644 $(@D)/u-boot-with-spl.imx $(BINARIES_DIR)/u-boot-with-spl.imx
++endef
++UBOOT_POST_INSTALL_IMAGES_HOOKS += UBOOT_INSTALL_UBOOT_SPL_IMX_BIN
++endif
++
+ ifeq ($(BR2_TARGET_UBOOT_NEEDS_ROCKCHIP_RKBIN),y)
+ UBOOT_DEPENDENCIES += rockchip-rkbin
+ define UBOOT_INSTALL_UBOOT_ROCKCHIP_BIN

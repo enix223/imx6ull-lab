@@ -1,9 +1,13 @@
 -include .env
 export $(shell sed 's/=.*//' .env)
 
+.PHONY: build
+build:
+	./scripts/buildroot-make.sh -j$(shell nproc)
+
 .PHONY: build-uboot
 build-uboot:
-	cd buildroot && make uboot-dirclean uboot-rebuild all
+	./scripts/buildroot-make.sh uboot-dirclean uboot-rebuild all
 
 .PHONY: burn-sdcard
 burn-sdcard:
