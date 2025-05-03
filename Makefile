@@ -1,6 +1,10 @@
 -include .env
 export $(shell sed 's/=.*//' .env)
 
+.PHONY: menuconfig
+menuconfig:
+	./scripts/buildroot-make.sh menuconfig
+
 .PHONY: build
 build:
 	./scripts/buildroot-make.sh -j$(shell nproc)

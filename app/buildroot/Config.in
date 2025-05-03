@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_IMX6ULL_APP_PATH/package/lvgl-app/Config.in"
