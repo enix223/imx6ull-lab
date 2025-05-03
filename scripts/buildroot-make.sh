@@ -17,4 +17,4 @@ done
 # Call buildroot make with passed arguments
 make -C "$BUILDROOT_DIR" "$@"
 
-cd $BUILDROOT_DIR && git checkout .
+cd $BUILDROOT_DIR && git checkout . && git clean -f -d
