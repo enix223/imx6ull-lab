@@ -6,6 +6,8 @@ project(lvgl-app LANGUAGES C)
 # Set C standard
 set(CMAKE_C_STANDARD 99)
 
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build static libraries" FORCE)
+
 # FetchContent to download LVGL from GitHub
 include(FetchContent)
 
@@ -19,10 +21,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(lvgl)
 
 # config lvgl
-target_include_directories(lvgl PRIVATE ${CMAKE_SOURCE_DIR}/inc)
+target_include_directories(lvgl PUBLIC ${CMAKE_SOURCE_DIR}/inc)
 target_include_directories(lvgl_demos PRIVATE ${CMAKE_SOURCE_DIR}/inc)
 target_include_directories(lvgl_examples PRIVATE ${CMAKE_SOURCE_DIR}/inc)
-target_compile_definitions(lvgl PRIVATE LV_CONF_INCLUDE_SIMPLE)
+target_compile_definitions(lvgl PUBLIC LV_CONF_INCLUDE_SIMPLE)
 
 # Include directories for LVGL
 include_directories(${lvgl_SOURCE_DIR}/include)
