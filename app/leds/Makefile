@@ -1,3 +1,6 @@
+include ../../.env
+export $(shell sed 's/=.*//' ../../.env)
+
 DOCKER_RUN := docker run --rm -it -v ${PWD}:/app -w /app -u ${UID}:${UID} enix223/build-imx6ull:4.9
 
 all: led.bin
@@ -15,13 +18,13 @@ clean:
 burn-bare:
 	docker run --rm -it -v ${PWD}:/app \
 		-w /app \
-		--device=/dev/sda \
+		--device=${SD} \
 		--cap-add=SYS_ADMIN \
-		enix223/build-imx6ull:4.9 imxdownload led.bin /dev/sda -256m
+		enix223/build-imx6ull:4.9 imxdownload led.bin ${SD} -256m
 
 .PHONY: burn-with-uboot
 burn-with-uboot:
-	sudo mkdir -p /mnt/sda1
-	sudo mount /dev/sda1 /mnt/sda1
-	sudo cp led.bin /mnt/sda1/led.bin
-	sudo umount /mnt/sda1
+	sudo mkdir -p ${SD}1
+	sudo mount /dev/sda1 ${SD}1
+	sudo cp led.bin ${SD}1/led.bin
+	sudo umount ${SD}1
